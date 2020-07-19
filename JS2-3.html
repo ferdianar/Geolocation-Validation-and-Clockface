@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation - Ferdian AR</title>
+    <link rel="icon" href="assets/peta.svg">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-image: url('assets/wood.jpg');
+            height: 100vh;
+            background-size: cover;
+            overflow: hidden;
+        }
+        #areas {
+            background-image: url('assets/peta.png');
+            background-size: cover;
+            background-position: right center;
+            padding: 2em;
+            width: 50%;
+            margin: 7em auto 0;
+            border-radius: 10px;
+            transition: .4s ease-out;
+        }
+        @media screen and (max-width: 768px) {
+            #areas {
+                width: 80%;
+                background-position: left center;
+            }
+            #areas h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+    <script type="text/javascript">
+        var area = document.getElementById('areas');
+
+        const initLocation = () =>  {
+            const geolocation = navigator.geolocation;
+            if(geolocation) {
+                try {
+                    navigator.geolocation.getCurrentPosition(
+                        successCallback,
+                        errorCallback
+                    );
+                } catch (err) {
+                    area.innerHTML = 'Error';
+                }
+            } else {
+                area.innerHTML = "Your Browser does not support geolocation";
+            }
+        }
+
+        const successCallback = location => {
+            areas.innerHTML = "<h2> Latitude &nbsp; &nbsp; &nbsp; : &nbsp; " + location.coords.latitude + "</h2>";
+            areas.innerHTML += "<h2> Longitude &nbsp; : &nbsp; " + location.coords.longitude + "</h2>";
+        }
+
+        const errorCallback = () => {
+            areas.innerHTML = "There was an error looking up your location";
+        }
+    </script>
+</head>
+<body onload="initLocation()">
+    <div data-aos="flip-right" id="areas"></div>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1500
+        });
+    </script>
+</body>
+</html>

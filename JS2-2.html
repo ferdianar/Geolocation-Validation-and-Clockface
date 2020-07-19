@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form - Ferdian AR</title>
+    <link rel="icon" href="./assets/Picture1.jpg">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script type="text/javascript">
+        const correct = () => {
+            var inputObject = document.getElementById("serial");
+            var value = inputObject.value;
+            var currentLength = value.length;
+            if(currentLength) {
+                var last_character = value.substring(currentLength - 1);
+                switch(currentLength) {
+                    case 4:
+                    case 8:
+                    case 11:
+                        if(last_character != '-') {
+                            value = value.substring(0, currentLength- 1);
+                        }
+                    break;
+                    default:
+                        if(!/\d/.test(last_character)) {
+                            value = value.substring(0, currentLength - 1);
+                        }
+                }
+                if (currentLength > 12) {
+                    vallue = value.substring(0, currentLength - 1);
+                }
+                currentLength = value.length;
+                switch(currentLength) {
+                    case 3:
+                    case 7:
+                    case 10:
+                        value += "-";
+                }
+                inputObject.value = value;
+            }
+        }
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        .wrap {
+            transition: .4s ease-out;
+            width: 80%;
+            margin: 7em auto;
+            /* background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%); */
+            background-image: url('./assets/banner.png');
+            background-position: right center;
+            color: #FFF;
+            padding: 2em;
+            border-radius: 14px;
+            font-family: "Poppins", sans-serif;
+        }
+        form {
+            margin: 0 0 2em;
+        }
+        input {
+            padding: 1em;
+            width: 50%;
+            border: none;
+            border-radius: 8px;
+        }
+        ::placeholder {
+            font-size: 14px;
+            font-family: "Poppins", sans-serif;
+        }
+        @media screen and (max-width: 768px) {
+            .wrap {
+                background-position: left;
+            }
+            input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div data-aos="fade-right" class="wrap" data-aos-duration="1500">
+    <h1>Form Management</h1>
+    <form>
+    <p> Enter the serial  number in the pattern, where each x is a digit : </p>
+    <input id="serial" type="text" size="12" onkeyup="correct();" placeholder="Type a number">
+    </form>
+    </div>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

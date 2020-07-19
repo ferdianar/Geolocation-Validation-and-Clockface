@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clockface - Ferdian AR</title>
+    <link rel="icon" href="./assets/Picture1.jpg">
+    <style>
+        * {
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            color: #FFF;
+            background-color: #000;
+        }
+        .container {
+            margin: auto;
+            margin: 100px;
+            text-align: center;
+        }
+        #clockface {
+            background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+            border-radius: 50%;
+        }
+    </style>
+    <script type="text/javascript">
+        var center_x = 100;
+        var center_y = 100;
+        length = 100;
+
+        const draw_leg = fraction => {
+            dctx.lineTo(center_x + length * Math.sin( 2*Math.PI * fraction), 
+            center_y - length * Math.cos(2 * Math.PI * fraction));
+        }
+
+        const show_hands = () => {
+            var less = new Date();
+            var second = less.getSeconds();
+            var minute = less.getMinutes() + second / 60;
+            var hours = less.getHours() + minute / 60;
+
+            show_hand(second/60, 0.002);
+            show_hand(minute/60, 0.005);
+            show_hand(hours/12, 0.01);
+
+            var rate = 1000;
+            setTimeout(show_hand,rate);
+        }
+
+        const init = () => {
+            var canvas = document.getElementById("clockface");
+            dctx=canvas.getContext("2d");
+            dctx.fillStyle="black";
+            show_hands();
+            printOut();
+        }
+
+        const show_hand = ( fraction , width ) => {
+            dctx.beginPath();
+            dctx.moveTo(center_x,center_y);
+            draw_leg(fraction-width);
+            draw_leg(fraction+width);
+            dctx.fill();
+        }
+
+        const printOut = () => {
+            document.getElementById("printOut").innerHTML = Date();
+        }
+    </script>
+</head>
+<body onload="init()">
+    <div class="container">
+    <h1>Analog Clockface</h1>
+    <canvas id="clockface" width="200" height="200"></canvas>
+    <h3 id="printOut"></h3>
+    </div>
+</body>
+</html>
